@@ -1,4 +1,41 @@
-# three-bmfont-text
+# three-bmfont-textra
+
+This is a fork of three-bmfont-textra. Meant to be used as an swappable extension if you need extra things for effects.
+
+- [ ] Expand geometry of letters in all directions
+  - [x] Create sides and corners
+    - [x] Positions
+    - [x] Indices
+    - [x] Make arrays of the correct size.
+  - [ ] Make correct UVs
+  - [ ] Make it work with more than one glyph. 
+- [x] Subdivide the vertices.
+  - [x] Fix vertices
+  - [x] Uvs
+  - [x] Indices
+- [ ] Calculate UV for
+  - [ ] Letters
+  - [ ] Words
+  - [ ] Lines
+    - [ ] Do I really need the UVs for this? 
+    - [ ] I can just use the y coord to get qq
+  - [ ] Paragrahps
+
+
+- TODO's
+  - [x] Fix UVs for segmented square
+  - [ ] Check if making it counterclockwise(it was clockwise before) has any effect
+  - Make indices unit9
+  - Move loop "pages" to the vertices loop
+  - Wonder if i can remove the indices loop by having the other loop do some magic with % and /
+
+- Optimizations
+  - [ ] make the ammount of subdivision dependent on the size of the letter 
+Problems:
+
+- Subdividing vertices / calculating uvs might make it really thought to recreate text on resize.
+  - Perhaps I can subdivide the position buffer, but leave al letters at the center. Then have a second buffer for the positioning (xy).
+    - With the idea beign that having a lot of the same attribute might be faster than creating a bunch of vertices.
 
 [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 
