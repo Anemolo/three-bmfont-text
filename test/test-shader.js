@@ -63,7 +63,7 @@ function start(font, texture) {
 
 	var duration = 3;
 	next();
-	//d saadd
+	//d saadddsa
 
 	var time = 0;
 	app.on("tick", function (dt) {
