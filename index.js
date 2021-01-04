@@ -39,7 +39,7 @@ TextGeometry.prototype.update = function (opt) {
 	if (!opt.font) {
 		throw new TypeError("must specify a { font } in options");
 	}
-
+	console.log(opt);
 	this.layout = createLayout(opt);
 
 	// get vec2 texcoords
@@ -69,6 +69,24 @@ TextGeometry.prototype.update = function (opt) {
 		flipY,
 		...opt,
 	});
+
+	let glyph = glyphs[0];
+	let bitmap = glyph.data;
+	this.extendUniforms = new THREE.Uniform(
+		new THREE.Vector4(
+			bitmap.x / texWidth,
+			1 - (bitmap.y + bitmap.height) / texHeight,
+			(bitmap.x + bitmap.width) / texWidth,
+			1 - bitmap.y / texHeight
+		)
+
+		//minx,
+		// minY,
+		// maxX,
+		//maxY
+	);
+	console.log(this.extendUniforms);
+
 	// var positions = vertices.positions(glyphs, opt);
 	// var uvs = vertices.uvs(glyphs, texWidth, texHeight, flipY, opt);
 	var uvs = attributes.uvs;
@@ -82,7 +100,7 @@ TextGeometry.prototype.update = function (opt) {
 		...opt,
 	});
 
-	console.log(indices, positions);
+	console.log(indices, positions, uvs);
 
 	// update vertex data
 	this.setIndex(indices);

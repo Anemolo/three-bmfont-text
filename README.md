@@ -1,14 +1,21 @@
 # three-bmfont-textra
 
 This is a fork of three-bmfont-textra. Meant to be used as an swappable extension if you need extra things for effects.
-
-- [ ] Expand geometry of letters in all directions
+- Re-creating
+  - [x] Make it work by creating From 0
+  - [ ] Make it work with the "update" method
+    - [ ] What the fuck is wrong with this. 
+- [x] Expand geometry of letters in all directions
   - [x] Create sides and corners
     - [x] Positions
     - [x] Indices
     - [x] Make arrays of the correct size.
-  - [ ] Make correct UVs
-  - [ ] Make it work with more than one glyph. 
+  - [x] Make correct UVs
+    - [ ] Make the uniform for it
+      - [ ] This should prbably be an attribute for each letter becasue they have different boundings
+      - [ ] Also, shirking and growing dont seem to be as nice as I thouhgt. Perhaps Im missing something or this isnt goign to work so well. I thought I could do it without messing with the texture.
+        - [ ] OR, maybe I'm clamping in the wrong s`pots?
+  - [x] Make it work with more than one glyph. 
 - [x] Subdivide the vertices.
   - [x] Fix vertices
   - [x] Uvs
