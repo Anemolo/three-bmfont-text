@@ -31,7 +31,6 @@ function createControls(initialState, sizes, onChange) {
 	};
 	function createOnToggle(key) {
 		return function (e) {
-			console.log(e, this);
 			e.preventDefault();
 			if (controls.state[key] == null) {
 				controls.state[key] = sizes[key] || 10;
@@ -96,13 +95,13 @@ function start(font, texture) {
 	app.camera.far = 100;
 
 	let wiredOptions = {
-		text: "N",
+		text: "He this is my wrapping full text",
 		font: font,
 		widthSegments: 1,
 		heightSegments: 1,
 		letterSpacing: 0,
 		align: "left",
-		width: 700,
+		width: 200,
 		flipY: texture.flipY,
 	};
 
@@ -127,12 +126,15 @@ function start(font, texture) {
 	let extend = {
 		// left: 20,
 		// top: 80,
-		bottom: 80,
+		// bottom: 80,
 		// right: 20,
 	};
+
 	var top = createText({
 		...wiredOptions,
-		extend,
+		widthSegments: 10,
+		heightSegments: 10,
+		extend, 
 	});
 
 	let meshT = createWiredMesh(top, wireframeMaterial);
@@ -145,8 +147,11 @@ function start(font, texture) {
 			varying vec2 vUv;
 			uniform vec4 uUVSpace;
 			varying float vAct;
+			attribute vec3 layoutUV;
+			varying vec3 vlayoutUV;
 			void main(){
 				vUv = uv;
+				vlayoutUV = layoutUV;
 				gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
 				// vec2 anchor = getPointInRectangle( uUVSpace.xy,uUVSpace.zw, vec2(0.,0.0));
 				// float height = uUVSpace.y - uUVSpace.w;
@@ -178,6 +183,7 @@ function start(font, texture) {
 			uniform sampler2D uMap;
 			varying float vAct;
 			uniform vec4 uUVSpace;
+			varying vec3 vlayoutUV;
 			vec2 getPointInRectangle(vec2 from, vec2 to, vec2 point ){
 				vec2 size = from - to;
 				return from + size * point;
@@ -193,44 +199,42 @@ function start(font, texture) {
 			}
 			uniform float uTime;
 			void main(){
-
 				vec2 uv = vUv;
-
 				vec2 anchor = getPointInRectangle( uUVSpace.xy,uUVSpace.zw, vec2(0.,0.0));
 				float height = uUVSpace.y - uUVSpace.w;
 				float act = (uv.y - uUVSpace.w) / height - 0.2;
 				act = max(0., act);
-				act = vAct;
-				uv.x += -anchor.x;
-				uv.x /= (uUVSpace.z - uUVSpace.x);
-				uv.x += -0.5;
-				uv.x *= 1. + 0.2 * act * act;
-				uv.x += 0.5;
-				uv.x *= (uUVSpace.z - uUVSpace.x);
-				uv.x += anchor.x;
+				act = 0.1;
+				// uv.x += -anchor.x;
+				// uv.x /= (uUVSpace.z - uUVSpace.x);
+				// uv.x += -0.5;
+				// uv.x *= 1. + 0.2 * act * act;
+				// uv.x += 0.5;
+				// uv.x *= (uUVSpace.z - uUVSpace.x);
+				// uv.x += anchor.x;
 
-				uv.y *= 1. + 0.1 * act;
-				uv = clamp(uv, uUVSpace.xy, uUVSpace.zw);
+				// uv.y *= 1. + 0.1 * act;
+				// uv = clamp(uv, uUVSpace.xy, uUVSpace.zw);
 
 
 				// uv.y += 0.01;
 				vec4 col = texture2D(uMap, uv);
-				float amp = 0.007;
+				float amp = 0.1;
 				// uv.x += cos(act+ uTime) * amp * min(1.,act);
-				uv = clamp(uv, uUVSpace.xy, uUVSpace.zw);
+				// uv = clamp(uv, uUVSpace.xy, uUVSpace.zw);
 				float red = aastep(texture2D(uMap, uv).a);
 
 
-				uv.x += cos(act + 0.2 + uTime) * amp * min(1.,act);
+				// uv.x += cos(act + 0.2 + uTime) * amp * min(1.,act);
 				// uv = clamp(uv, uUVSpace.xy, uUVSpace.zw);
 				float green = aastep(texture2D(uMap, uv).a);
-				uv.x += cos(act + 1.+ uTime) * amp * min(1.,act);
+				// uv.x += cos(act + 1.+ uTime) * amp * min(1.,act);
 				// uv = clamp(uv, uUVSpace.xy, uUVSpace.zw);
 				float blue = aastep(texture2D(uMap, uv).a);
 				
 				// gl_FragColor = vec4(vec3(1.), aastep(col.a));
 				gl_FragColor = vec4(vec3(red,green,blue), (red + green + blue)/3.);
-			// gl_FragColor = vec4(vec3(vUv.x), 1.);
+				gl_FragColor = vec4(vec3(vlayoutUV.x), 1.);
 			}
 			`,
 			uniforms: {
@@ -244,13 +248,12 @@ function start(font, texture) {
 			color: "rgb(230, 230, 230)",
 		})
 	);
-	console.log(top.extendUniforms);
 	texture.needsUpdate = true;
 	textAnchor.add(meshUVShader);
-	meshUVShader.position.x += 130;
+	// meshUVShader.position.x += 130;
+	// meshUVShader.position.y += 130;
 
 	createControls(extend, { bottom: 100 }, (extend) => {
-		console.log(extend);
 		top = createText({
 			...wiredOptions,
 			extend,
@@ -266,8 +269,9 @@ function start(font, texture) {
 		// top.index.needsUpdate = true;
 		top.needsUpdate = true;
 		top.computeBoundingSphere();
-		console.log("geo", top);
 	});
+
+	// top.update("test")
 
 	// textAnchor.add(corners);
 	textAnchor.scale.multiplyScalar((1 / (window.devicePixelRatio || 1)) * 6);
