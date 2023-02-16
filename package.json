@@ -1,14 +1,20 @@
 {
-	"name": "three-bmfont-text",
-	"version": "3.0.0",
+	"name": "three-bmfont-textra",
+	"version": "3.1.0",
 	"description": "renders BMFont files in ThreeJS with word-wrapping",
 	"main": "index.js",
 	"license": "MIT",
-	"author": {
+	"authors": [
+		{
 		"name": "Matt DesLauriers",
 		"email": "dave.des@gmail.com",
 		"url": "https://github.com/mattdesl"
-	},
+	},{
+		"name": "Daniel Velasquez",
+		"email": "velasquezdanield@gmail.com",
+		"url": "https://twitter.com/Anemolito"
+	}
+],
 	"standard": {
 		"globals": [
 			"THREE"
@@ -72,10 +78,10 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/Jam3/three-bmfont-text.git"
+		"url": "git@github.com:Anemolo/three-bmfont-textra.git"
 	},
-	"homepage": "https://github.com/Jam3/three-bmfont-text",
+	"homepage": "https://github.com/Anemolo/three-bmfont-textra/",
 	"bugs": {
-		"url": "https://github.com/Jam3/three-bmfont-text/issues"
+		"url": "https://github.com/Anemolo/three-bmfont-textra/issues"
 	}
 }

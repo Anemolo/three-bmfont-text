@@ -37,9 +37,7 @@ class TextGeometry2 extends BufferGeometry {
 		if (!opt.font) {
 			throw new TypeError("must specify a { font } in options");
 		}
-		console.log(opt);
 		this.layout = createLayout(opt);
-		console.log(this.layout)
 	
 		// get vec2 texcoords
 		var flipY = opt.flipY !== false;
@@ -57,7 +55,6 @@ class TextGeometry2 extends BufferGeometry {
 			return bitmap.width * bitmap.height > 0;
 		});
 	
-		console.log(glyphs);
 		let lastIndex = 0;
 		let wordCount = -1;
 		glyphs.forEach((glyph, i) =>{
@@ -75,7 +72,6 @@ class TextGeometry2 extends BufferGeometry {
 		
 		this.layout.glyphs = glyphs;
 		this.layout._wordsTotal = wordCount;
-		console.log(this.layout.glyphs)
 		// Mark words
 		// glyphs
 	
@@ -106,7 +102,6 @@ class TextGeometry2 extends BufferGeometry {
 			//maxY
 		);
 	
-		console.log(glyphs)
 	
 		// var positions = vertices.positions(glyphs, opt);
 		// var uvs = vertices.uvs(glyphs, texWidth, texHeight, flipY, opt);

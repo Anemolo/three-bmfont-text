@@ -1,10 +1,15 @@
 # three-bmfont-textra
 
 This is a fork of three-bmfont-textra. Meant to be used as an swappable extension if you need extra things for effects.
+
+## New Features
+- UVs for letters,words,lines,
+- Expanding the letters to have space for effects (WIP)
+- Subdivision of the plane for vertex effects.
+
 - Re-creating
   - [x] Make it work by creating From 0
-  - [ ] Make it work with the "update" method
-    - [ ] What the fuck is wrong with this. 
+  - [x] Fix Update Method
 - [x] Expand geometry of letters in all directions
   - [x] Create sides and corners
     - [x] Positions
@@ -12,7 +17,7 @@ This is a fork of three-bmfont-textra. Meant to be used as an swappable extensio
     - [x] Make arrays of the correct size.
   - [x] Make correct UVs
     - [ ] Make the uniform for it
-      - [ ] This should prbably be an attribute for each letter becasue they have different boundings
+      - [ ] This should probably be an attribute for each letter becasue they have different boundings
       - [ ] Also, shirking and growing dont seem to be as nice as I thouhgt. Perhaps Im missing something or this isnt goign to work so well. I thought I could do it without messing with the texture.
         - [ ] OR, maybe I'm clamping in the wrong s`pots?
   - [x] Make it work with more than one glyph. 
@@ -20,18 +25,17 @@ This is a fork of three-bmfont-textra. Meant to be used as an swappable extensio
   - [x] Fix vertices
   - [x] Uvs
   - [x] Indices
-- [ ] Calculate UV for
-  - [ ] Letters
-  - [ ] Words
-  - [ ] Lines
-    - [ ] Do I really need the UVs for this? 
-    - [ ] I can just use the y coord to get qq
+- [x] Calculate UV for
+  - [x] Letters
+  - [x] Words
+  - [x] Lines
   - [ ] Paragrahps
 
 
 - TODO's
   - [x] Fix UVs for segmented square
   - [ ] Check if making it counterclockwise(it was clockwise before) has any effect
+- 
   - Make indices unit9
   - Move loop "pages" to the vertices loop
   - Wonder if i can remove the indices loop by having the other loop do some magic with % and /
