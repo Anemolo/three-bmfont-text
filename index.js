@@ -4,7 +4,7 @@ var createIndices = require("quad-indices");
 
 var vertices = require("./lib/vertices");
 var utils = require("./lib/utils");
-const { BufferGeometry } = require("three");
+const { BufferGeometry, Uniform,BufferAttribute, Sphere, Box3, Vector4 } = require("three");
 
 
 module.exports = function createTextGeometry(opt) {
@@ -88,8 +88,8 @@ class TextGeometry2 extends BufferGeometry {
 	
 		let glyph = glyphs[0];
 		let bitmap = glyph.data;
-		this.extendUniforms = new THREE.Uniform(
-			new THREE.Vector4(
+		this.extendUniforms = new Uniform(
+			new Vector4(
 				bitmap.x / texWidth,
 				1 - (bitmap.y + bitmap.height) / texHeight,
 				(bitmap.x + bitmap.width) / texWidth,
@@ -119,9 +119,9 @@ class TextGeometry2 extends BufferGeometry {
 	
 		// update vertex data
 		this.setIndex(indices);
-		this.setAttribute("position", new THREE.BufferAttribute(positions, 2));
-		this.setAttribute("layoutUV", new THREE.BufferAttribute(layoutUVs, 3));
-		this.setAttribute("uv", new THREE.BufferAttribute(uvs, 2));
+		this.setAttribute("position", BufferAttribute(positions, 2));
+		this.setAttribute("layoutUV", BufferAttribute(layoutUVs, 3));
+		this.setAttribute("uv", BufferAttribute(uvs, 2));
 		// update multipage data
 		if (!opt.multipage && "page" in this.attributes) {
 			// disable multipage rendering
@@ -129,13 +129,13 @@ class TextGeometry2 extends BufferGeometry {
 		} else if (opt.multipage) {
 			// enable multipage rendering
 			var pages = vertices.pages(glyphs);
-			this.setAttribute("page", new THREE.BufferAttribute(pages, 1));
+			this.setAttribute("page", BufferAttribute(pages, 1));
 		}
 	}
 
 	computeBoundingSphere() {
 		if (this.boundingSphere === null) {
-			this.boundingSphere = new THREE.Sphere();
+			this.boundingSphere = Sphere();
 		}
 	
 		var positions = this.attributes.position.array;
@@ -157,7 +157,7 @@ class TextGeometry2 extends BufferGeometry {
 	
 	computeBoundingBox() {
 		if (this.boundingBox === null) {
-			this.boundingBox = new THREE.Box3();
+			this.boundingBox = new Box3();
 		}
 	
 		var bbox = this.boundingBox;
