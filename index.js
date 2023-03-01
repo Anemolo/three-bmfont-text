@@ -119,9 +119,9 @@ class TextGeometry2 extends BufferGeometry {
 	
 		// update vertex data
 		this.setIndex(indices);
-		this.setAttribute("position", BufferAttribute(positions, 2));
-		this.setAttribute("layoutUV", BufferAttribute(layoutUVs, 3));
-		this.setAttribute("uv", BufferAttribute(uvs, 2));
+		this.setAttribute("position", new BufferAttribute(positions, 2));
+		this.setAttribute("layoutUV", new BufferAttribute(layoutUVs, 3));
+		this.setAttribute("uv", new BufferAttribute(uvs, 2));
 		// update multipage data
 		if (!opt.multipage && "page" in this.attributes) {
 			// disable multipage rendering
@@ -129,13 +129,13 @@ class TextGeometry2 extends BufferGeometry {
 		} else if (opt.multipage) {
 			// enable multipage rendering
 			var pages = vertices.pages(glyphs);
-			this.setAttribute("page", BufferAttribute(pages, 1));
+			this.setAttribute("page", new BufferAttribute(pages, 1));
 		}
 	}
 
 	computeBoundingSphere() {
 		if (this.boundingSphere === null) {
-			this.boundingSphere = Sphere();
+			this.boundingSphere = new Sphere();
 		}
 	
 		var positions = this.attributes.position.array;
