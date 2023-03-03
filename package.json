@@ -2,24 +2,22 @@
 	"name": "three-bmfont-textra",
 	"version": "3.2.1",
 	"description": "renders BMFont files in ThreeJS with word-wrapping",
-	"main": "index.js",
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
 	"license": "MIT",
 	"authors": [
 		{
-		"name": "Matt DesLauriers",
-		"email": "dave.des@gmail.com",
-		"url": "https://github.com/mattdesl"
-	},{
-		"name": "Daniel Velasquez",
-		"email": "velasquezdanield@gmail.com",
-		"url": "https://twitter.com/Anemolito"
-	}
-],
-	"standard": {
-		"globals": [
-			"THREE"
-		]
-	},
+			"name": "Matt DesLauriers",
+			"email": "dave.des@gmail.com",
+			"url": "https://github.com/mattdesl"
+		},
+		{
+			"name": "Daniel Velasquez",
+			"email": "velasquezdanield@gmail.com",
+			"url": "https://twitter.com/Anemolito"
+		}
+	],
 	"dependencies": {
 		"array-shuffle": "^1.0.1",
 		"inherits": "^2.0.1",
@@ -27,24 +25,31 @@
 		"nice-color-palettes": "^3.0.0",
 		"object-assign": "^4.0.1",
 		"quad-indices": "^2.0.1",
-		"three-buffer-vertex-data": "^1.0.0"
+		"three-buffer-vertex-data": "^1.0.0",
+		"vite": "^4.1.4"
+	},
+	"peerDependencies": {
+		"three": ">=0.120.0"
 	},
 	"devDependencies": {
 		"bluebird": "^3.7.2",
 		"browserify": "^16.5.1",
 		"budo": "^11.6.3",
+		"esbuild": "^0.17.10",
 		"glsl-aastep": "^1.0.1",
 		"glsl-noise": "0.0.0",
 		"glslify": "^7.0.0",
 		"load-bmfont": "^1.0.0",
 		"standard": "^14.3.4",
 		"sun-tzu-quotes": "^1.0.0",
-		"three": "^0.118.3",
+		"three": ">=0.120.0",
 		"three-orbit-viewer": "^69.2.9",
 		"three-vignette-background": "^1.0.2",
 		"uglify-js": "^3.10.0"
 	},
 	"scripts": {
+		"bundleVite": "vite build",
+		"bundle": "esbuild index.js --bundle --outdir=dist --main-fields=module,main",
 		"build": "browserify test/test-shader.js -t glslify | uglifyjs -cm > test/bundle.js",
 		"start": "budo test/test-shader.js:bundle.js --dir test --live -- -t glslify",
 		"test-2d": "budo test/test-2d.js:bundle.js --dir test --live",
